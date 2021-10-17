@@ -1,5 +1,6 @@
 package com.therealspoljo.smelter;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,8 +16,8 @@ public class Main extends JavaPlugin {
 
     private static Main instance;
 
-    private Economy economy = null;
-    private Permission permission = null;
+    private Economy econ = null;
+    private Permission perms = null;
 
     private Config config, langConfig;
 
@@ -24,11 +25,12 @@ public class Main extends JavaPlugin {
     public void onEnable() {
 	instance = this;
 
-	if (!setupEconomy()) {
-	    getLogger().warning("You need to install Vault for this plugin to work.");
-	    getServer().getPluginManager().disablePlugin(this);
-	    return;
-	}
+		if (!setupEconomy() ) {
+			getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
+		setupPermissions();
 
 	config = Config.createConfig(this, "config");
 	langConfig = Config.createConfig(this, "lang");
@@ -41,36 +43,30 @@ public class Main extends JavaPlugin {
     public void onDisable() {
 	instance = null;
 
-	economy = null;
-	permission = null;
+	econ = null;
+	perms = null;
 
 	config = null;
 	langConfig = null;
     }
 
-    private boolean setupEconomy() {
-	if (getServer().getPluginManager().getPlugin("Vault") == null) {
-	    return false;
+	private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		if (rsp == null) {
+			return false;
+		}
+		econ = rsp.getProvider();
+		return econ != null;
 	}
 
-	RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-
-	if (rsp == null) {
-	    return false;
+	private boolean setupPermissions() {
+		RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+		perms = rsp.getProvider();
+		return perms != null;
 	}
-
-	economy = rsp.getProvider();
-
-	return economy != null;
-    }
-
-    private boolean setupPermissions() {
-	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-
-	permission = rsp.getProvider();
-
-	return permission != null;
-    }
 
     private void registerCommands() {
 	getCommand("smelt").setExecutor(new Smelt());
@@ -92,10 +88,10 @@ public class Main extends JavaPlugin {
     }
 
     public Economy getEconomy() {
-	return economy;
+	return econ;
     }
 
     public Permission getPermission() {
-	return permission;
+	return perms;
     }
 }
