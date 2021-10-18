@@ -56,6 +56,7 @@ public class Main extends JavaPlugin {
 		}
 		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 		if (rsp == null) {
+			getLogger().severe(String.format("[%s] - Disabled plugin, could not find an economy plugin!", getDescription().getName()));
 			return false;
 		}
 		econ = rsp.getProvider();
