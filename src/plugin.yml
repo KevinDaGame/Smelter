@@ -1,7 +1,7 @@
 main: com.therealspoljo.smelter.Main
 name: Smelter
 api-version: 1.16
-version: 3.1
+version: 3.2
 author: therealspoljo, KevinDaGame
 depend: [Vault]
 

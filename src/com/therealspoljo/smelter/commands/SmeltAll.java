@@ -99,7 +99,6 @@ public class SmeltAll implements CommandExecutor {
 	    itemStack.setItemMeta(smelted.getItemMeta());
 	    itemStack.setType(smelted.getType());
 	    itemStack.setData(itemStack.getData());
-	    itemStack.setDurability(smelted.getDurability());
 	}
 
 	if (isEconomyEnabled && !Permissions.SMELTALL_FREE.isAllowed(sender)) {

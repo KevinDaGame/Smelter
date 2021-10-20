@@ -245,7 +245,9 @@ public final class Utils {
             case BLACK_TERRACOTTA:{
                 return  new ItemStack(Material.BLACK_GLAZED_TERRACOTTA, itemStack.getAmount());
             }
-
+            case KELP:{
+                return new ItemStack(Material.DRIED_KELP, itemStack.getAmount());
+            }
 
             default:
                 return null;
