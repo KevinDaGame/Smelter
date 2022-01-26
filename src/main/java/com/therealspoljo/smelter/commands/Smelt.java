@@ -14,7 +14,10 @@ import com.therealspoljo.smelter.utilities.Utils;
 
 public class Smelt implements CommandExecutor {
 
-    @Override
+	public Smelt() {
+	}
+
+	@Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 	if (!Permissions.SMELT.isAllowed(sender)) {
 	    Lang.NO_PERMISSION.send(sender);
@@ -27,7 +30,7 @@ public class Smelt implements CommandExecutor {
 	}
 
 	if (args.length > 0) {
-	    sender.sendMessage("§cUsage: §7" + command.getUsage().replaceAll("<command>", commandLabel));
+	    sender.sendMessage("ï¿½cUsage: ï¿½7" + command.getUsage().replaceAll("<command>", commandLabel));
 	    return true;
 	}
 

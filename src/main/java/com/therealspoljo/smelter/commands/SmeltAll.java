@@ -15,7 +15,10 @@ import com.therealspoljo.smelter.utilities.Utils;
 
 public class SmeltAll implements CommandExecutor {
 
-    @Override
+	public SmeltAll() {
+	}
+
+	@Override
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 	if (!Permissions.SMELTALL.isAllowed(sender)) {
 	    Lang.NO_PERMISSION.send(sender);
@@ -28,7 +31,7 @@ public class SmeltAll implements CommandExecutor {
 	}
 
 	if (args.length > 0) {
-	    sender.sendMessage("§cUsage: §7" + command.getUsage().replaceAll("<command>", commandLabel));
+	    sender.sendMessage("&cUsage: &7" + command.getUsage().replaceAll("<command>", commandLabel));
 	    return true;
 	}
 
@@ -90,7 +93,6 @@ public class SmeltAll implements CommandExecutor {
 	    }
 
 	    ItemStack smelted = Utils.getSmeltedItemStack(itemStack);
-
 	    if (smelted == null) {
 		continue;
 	    }

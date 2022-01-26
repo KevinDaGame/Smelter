@@ -1,6 +1,7 @@
 package com.therealspoljo.smelter;
 
-import org.bukkit.Bukkit;
+import com.therealspoljo.smelter.utilities.ConfigUtils;
+import com.therealspoljo.smelter.utilities.Utils;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,9 +35,9 @@ public class Main extends JavaPlugin {
 
 	config = Config.createConfig(this, "config");
 	langConfig = Config.createConfig(this, "lang");
-
 	registerCommands();
 	setupPermissions();
+	Utils.setup();
     }
 
     @Override
